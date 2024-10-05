@@ -29,15 +29,16 @@ public class AuthResource {
     @Transactional
     public Response login(UserLoginRequest request) {
         // Verificar se o usuário e a senha são válidos
-        User user = userService.validateUser(request.email, request.senha);
-
+        System.out.println("Login request: " + request.password + " " + request.email);
+        User user = userService.validateUser(request.email, request.password);
 
         if (user == null || !user.funcao.equals("Admin")) {
             return Response.status(Response.Status.UNAUTHORIZED).build();
         }
         System.out.println("Usuário Verificado");
+
         // Gerar o token JWT para o admin
-        String token = JwtUtils.generateToken(user.nome+""+user.sobrenome,user.email, Set.of("Admin"));
+        String token = JwtUtils.generateToken(user.nome+" "+user.sobrenome,user.email, Set.of("Admin"));
 
         // Retornar o token para o frontend
         return Response.ok(new AuthResponse(token)).build();

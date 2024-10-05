@@ -2,12 +2,12 @@ package techtins.api.auth;
 
 public class UserLoginRequest {
     public String email;
-    public String senha;
+    public String password;
 
     public UserLoginRequest() {}
 
-    public UserLoginRequest(String email, String senha) {
+    public UserLoginRequest(String email, String password) {
         this.email = email;
-        this.senha = senha;
+        this.password = password;
     }
 }

@@ -72,24 +72,13 @@ public class UserResource {
             return Response.status(Response.Status.BAD_REQUEST).build();
         }
 
-        // Extraindo o nome do admin do token JWT
-        String adminName = jwt.getClaim("username");
-        String adminEmail = jwt.getClaim("email");
-
         // Salvando o novo usuário
         user.senha = BCrypt.hashpw(user.senha, BCrypt.gensalt());
         user.dataCadastro = java.time.LocalDate.now();
         user.status = "Ativo";
         user.persist();
 
-        // Salvando no histórico
-        UserHistory history = new UserHistory();
-        history.adminName = adminName;
-        history.adminEmail = adminEmail;
-        history.createdUserName = user.nome + " " + user.sobrenome;
-        history.createdDate = java.time.LocalDate.now();
-        history.actionType = "Cadastro";
-        history.persist();
+        persistUserHistory(user, "Cadastro");
 
         return Response.status(Response.Status.CREATED).entity(user).build();
     }
@@ -119,6 +108,8 @@ public class UserResource {
         user.genero = updatedUser.genero; // Atualizando o gênero
         user.persist();
 
+        persistUserHistory(user, "Atualização");
+
         return Response.ok(user).build();
     }
 
@@ -132,6 +123,7 @@ public class UserResource {
         if (user == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+        persistUserHistory(user, "Deleção");
         user.delete();
         return Response.noContent().build();
     }
@@ -140,5 +132,16 @@ public class UserResource {
     @Path("/history")
     public List<UserHistory> getUserHistory() {
         return UserHistory.listAll();
+    }
+
+    private void persistUserHistory(User user, String type) {
+        UserHistory history = new UserHistory();
+        history.adminName = jwt.getClaim("username");
+        history.adminEmail = jwt.getClaim("email");
+        history.createdUserName = user.nome + " " + user.sobrenome;
+        history.createdUserEmail = user.email;
+        history.createdDate = java.time.LocalDate.now();
+        history.actionType = type;
+        history.persist();
     }
 }

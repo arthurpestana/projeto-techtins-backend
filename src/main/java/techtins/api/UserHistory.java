@@ -16,6 +16,7 @@ public class UserHistory extends PanacheEntityBase {
     public String adminName; // Nome do admin que criou o usuário
     public String adminEmail; // Email do admin que criou o usuário
     public String createdUserName; // Nome do usuário criado
+    public String createdUserEmail;
     public LocalDate createdDate; // Data de criação do usuário
     public String actionType;
 }
