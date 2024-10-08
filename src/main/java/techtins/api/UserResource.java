@@ -75,7 +75,6 @@ public class UserResource {
         // Salvando o novo usuário
         user.senha = BCrypt.hashpw(user.senha, BCrypt.gensalt());
         user.dataCadastro = java.time.LocalDate.now();
-        user.status = "Ativo";
         user.persist();
 
         persistUserHistory(user, "Cadastro");
