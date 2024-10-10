@@ -102,9 +102,9 @@ public class UserResource {
         }
         user.funcao = updatedUser.funcao;
         user.status = updatedUser.status;
-        user.fotoUrl = updatedUser.fotoUrl; // Atualizando a URL da foto
-        user.endereco = updatedUser.endereco; // Atualizando o endereço
-        user.genero = updatedUser.genero; // Atualizando o gênero
+        user.endereco = updatedUser.endereco;
+        user.fotoUrl = updatedUser.fotoUrl;
+        user.genero = updatedUser.genero;
         user.persist();
 
         persistUserHistory(user, "Atualização");

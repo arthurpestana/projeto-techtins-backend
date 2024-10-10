@@ -33,7 +33,10 @@ public class AuthResource {
         User user = userService.validateUser(request.email, request.password);
 
         if (user == null || !user.funcao.equals("Admin")) {
-            return Response.status(Response.Status.UNAUTHORIZED).build();
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Login falhou, o usuário deve ser Admin. Verifique seu email ou senha!").build();
+        }
+        if (user.status.equals("Inativo")) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity("Usuário inativo. Acesso não autorizado.").build();
         }
         System.out.println("Usuário Verificado");
 

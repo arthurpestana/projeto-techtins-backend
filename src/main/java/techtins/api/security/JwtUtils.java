@@ -12,7 +12,7 @@ public class JwtUtils {
                 .claim("email", email)  // Adiciona o e-mail como um claim personalizado
                 .claim("username", username)  // Adiciona o nome de usuário como um claim personalizado
                 .groups(roles)  // Roles do usuário
-                .expiresIn(Duration.ofHours(1))  // Expiração do token
+                .expiresIn(Duration.ofHours(2))  // Expiração do token
                 .sign();  // Assina e gera o token
     }
 }
