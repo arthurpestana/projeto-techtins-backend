@@ -48,12 +48,16 @@ public class UserResource {
     }
 
     @GET
+    @JwtRequired
+    @RolesAllowed("Admin")
     public List<User> getAllUsers() {
         return User.listAll();
     }
 
     @GET
     @Path("/{id}")
+    @JwtRequired
+    @RolesAllowed("Admin")
     public User getUserById(@PathParam("id") Long id) {
         return User.findById(id);
     }
@@ -129,6 +133,8 @@ public class UserResource {
 
     @GET
     @Path("/history")
+    @JwtRequired
+    @RolesAllowed("Admin")
     public List<UserHistory> getUserHistory() {
         return UserHistory.listAll();
     }

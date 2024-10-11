@@ -1,78 +1,208 @@
-# projeto-techtins-backend
+# API para Gerenciamento de Usuários - Loja SneakerShop
+> Status do Projeto: Concluído! :heavy_check_mark:
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+Documentação completa da API para Gerenciamento de Usuários da loja SneakerShop, desenvolvido com Quarkus Java e MySQL. A aplicação permite que os administradores gerenciem os usuários do sistema de forma eficiente e segura, utilizando JWT para autenticação e controle de acesso
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
+## Objetivo
 
-## Running the application in dev mode
+O objetivo principal desta sistema é oferecer uma solução simples e eficaz para os administradores do SneakerShop monitorarem e gerenciarem os perfis de usuários, incluindo funcionalidades como:
 
-You can run your application in dev mode that enables live coding using:
+- Gerenciar usuários (administradores, clientes e funcionários).
+- Cadastrar, visualizar, editar e excluir usuários do sistema.
+- Visualizar o histórico de operações recentes
+- Garantir a segurança do acesso, com autenticação segura para que apenas administradores possam gerenciar os dados dos usuários.
 
-```shell script
-./mvnw compile quarkus:dev
+## Funcionalidades da API RESTful
+
+- [x] Gerenciamento de permissões de usuário
+- [x] CRUD de usuários (Criar, Ler, Atualizar e Deletar)
+- [x] Histórico de Operações: exibe as últimas ações realizadas no sistema.
+- [x] Controle de acesso utilizando autenticação JWT
+- [x] Sistema de rotas protegidas
+- [x] Criptografia de senhas
+
+## Estruturação de Rotas
+
+```
+.
+/src
+  ├── /main
+  │     ├── /java
+  │     │     ├── /techtins/api
+  │     │     │     │    └── /auth
+  │     │     │     │         ├──AuthResource.java
+  │     │     │     │         ├──AuthResponse.java
+  │     │     │     │         ├──UserLoginRequest.java
+  │     │     │     │         └──UserService.java
+  │     │     │     │
+  │     │     │     │    └──/security
+  │     │     │     │         ├──JwtFilter.java
+  │     │     │     │         ├──JwtRequired.java
+  │     │     │     │         └──JwtUtils.java
+  │     │     │     │    
+  │     │     │     ├── UserResource.java
+  │     │     │     ├── User.java
+  │     │     │     └── UserHistory.java
+  │     │     │     
+  │     ├── /resources
+  │           └── application.properties
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+## Rotas API RESTful
 
-## Packaging and running the application
-
-The application can be packaged using:
-
-```shell script
-./mvnw package
+### @GET /users
+- Retorna uma lista de todos os usuários cadastrados.
+```json
+[
+  {
+    "id": 1,
+    "nome": "Admin",
+    "sobrenome": "User",
+    "email": "admin@example.com",
+    "senha": "$2a$10$kXuanb.cmVsE1249hcWyH.bhAJ/7QjmRK.S/33p8BaYJVfOS6nR.W",
+    "funcao": "Admin",
+    "dataCadastro": "2024-10-04",
+    "status": "Ativo",
+    "fotoUrl": null,
+    "endereco": null,
+    "genero": "Outro"
+  }
+]
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+### @POST /users
+- Cria um novo usuário no sistema.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+### @PUT /users/{id}
+- Atualiza os dados de um usuário existente.
 
-If you want to build an _über-jar_, execute the following command:
+### @DELETE /users/{id}
+- Exclui um usuário do sistema.
 
-```shell script
-./mvnw package -Dquarkus.package.jar.type=uber-jar
+### @GET /users/history
+- Retorna um histórico das últimas 5 operações de cadastro realizadas no sistema.
+```json
+[
+  {
+    "id": 1,
+    "adminName": "Admin User",
+    "adminEmail": "admin@example.com",
+    "createdUserName": "CreatedUser",
+    "createdUserEmail": "createduser23@gmail.com",
+    "createdDate": "2024-10-04",
+    "actionType": "Cadastro"
+  }
+]
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+## Tecnologias
 
-## Creating a native executable
+- [Java](https://www.java.com/pt-BR/)
+- [Quarkus](https://pt.quarkus.io/)
+- [JWT (JSON Web Token)](https://jwt.io/)
+- [MySQL](https://www.mysql.com/)
 
-You can create a native executable using:
+## Pré-Requisitos
 
-```shell script
-./mvnw package -Dnative
+#### Java JDK
+É necessário instalar o [JDK 11](https://www.oracle.com/java/technologies/downloads/#java11?er=221886) executar o projeto corretamente. Na página oficial, siga as instruções do intalador.
+
+- **Versão Requerida**: JDK 11 ou Superior.
+
+Você pode verificar a versão instalada com o seguinte comando no terminal:
+
+```bash
+java -version
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+### MySQL
+Baixe o [MySQL Installer](https://dev.mysql.com/downloads/installer/) para criação do banco de dados. Dentro da página oficial, siga as instruções do intalador.
 
-```shell script
-./mvnw package -Dnative -Dquarkus.native.container-build=true
+Você pode verificar a versão instalada com o seguinte comando no terminal:
+
+```bash
+mysql -u root -p
 ```
 
-You can then execute your native executable with: `./target/projeto-techtins-backend-1.0.0-SNAPSHOT-runner`
+### Maven
+Faça a intalação do [Maven](https://maven.apache.org/download.cgi) para facilitar a execução do projeto. Após instalação, siga os passos:
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+- Extraia o arquivo baixado para um diretório de sua escolha
+- Adicione o caminho do diretório `bin` do Maven nas variáveis de ambiente do sistema `(PATH)`.
 
-## Related Guides
+Você pode verificar a versão instalada com o seguinte comando no terminal:
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
-- Hibernate ORM with Panache ([guide](https://quarkus.io/guides/hibernate-orm-panache)): Simplify your persistence code for Hibernate ORM via the active record or the repository pattern
-- JDBC Driver - PostgreSQL ([guide](https://quarkus.io/guides/datasource)): Connect to the PostgreSQL database via JDBC
+```bash
+mvn -version
+```
 
-## Provided Code
+## Execução da Aplicação
 
-### Hibernate ORM
+1º No terminal, clone o repositório:
 
-Create your first JPA entity
+```bash
+git clone https://github.com/arthurpestana/projeto-techtins-backend.git
+```
 
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
+2º Acesse o diretório do projeto e instale todas as dependências.
 
-[Related Hibernate with Panache section...](https://quarkus.io/guides/hibernate-orm-panache)
+```bash
+mvn clean install
+```
 
+3º Crie o banco de dados usando o arquivo disponível na pasta `/db`:
 
-### REST
+```sql
+DROP DATABASE IF EXISTS projeto_techtins_db;
+CREATE DATABASE IF NOT EXISTS projeto_techtins_db;
 
-Easily start your REST Web Services
+USE projeto_techtins_db;
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+-- Tabela para armazenar informações de usuários
+CREATE TABLE IF NOT EXISTS user (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    sobrenome VARCHAR(100) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    senha VARCHAR(255) NOT NULL,
+    funcao ENUM('Admin', 'Cliente', 'Funcionário') DEFAULT 'Cliente',
+    status ENUM('Ativo', 'Inativo') DEFAULT 'Ativo',
+    dataCadastro DATE NOT NULL,
+    fotoUrl VARCHAR(255),
+    endereco VARCHAR(255),
+    genero ENUM('Masculino', 'Feminino', 'Outro') DEFAULT 'Outro'
+);
+
+-- Tabela para armazenar histórico de criação e modificação de usuários
+CREATE TABLE IF NOT EXISTS user_history (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    adminName VARCHAR(100) NOT NULL,
+    adminEmail VARCHAR(255) NOT NULL,
+    createdUserName VARCHAR(255) NOT NULL,
+    createdUserEmail VARCHAR(255) NOT NULL,
+    createdDate DATE NOT NULL,
+    actionType ENUM('Cadastro', 'Atualização', 'Deleção') NOT NULL
+);
+```
+
+4º Acesse o arquivo `src/main/resources/application.properties` e modifique as informações referentes ao seu SGBD. Como: usuário, senha, porta e schema.
+
+```properties
+quarkus.datasource.db-kind=mysql
+quarkus.datasource.username={usuário}
+quarkus.datasource.password={senha}
+quarkus.datasource.jdbc.url=jdbc:mysql://localhost:{porta}/{schema}
+```
+Por fim, execute o servidor de desenvolvimento:
+
+```bash
+mvn quarkus:dev
+```
+
+A aplicação estará disponível em [http://localhost:8080](http://localhost:8080).
+
+## Licença
+
+The [MIT License]() (MIT)
+
+Copyright :copyright: 2024 - Projeto-Techtins
