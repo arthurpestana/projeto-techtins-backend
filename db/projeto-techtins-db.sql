@@ -15,15 +15,16 @@ CREATE TABLE IF NOT EXISTS user (
     dataCadastro DATE NOT NULL,
     fotoUrl VARCHAR(255),
     endereco VARCHAR(255),
-    genero ENUM('Masculino', 'Feminino', 'Outro')
+    genero ENUM('Masculino', 'Feminino', 'Outro') DEFAULT 'Outro'
 );
 
 -- Tabela para armazenar histórico de criação e modificação de usuários
 CREATE TABLE IF NOT EXISTS user_history (
     id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-    adminName VARCHAR(100) NOT NULL,  -- Nome do admin que criou/modificou o usuário
-    adminEmail VARCHAR(255) NOT NULL,  -- Email do admin
-    createdUserName VARCHAR(255) NOT NULL,  -- Nome do usuário que foi criado/modificado
-    createdDate DATE NOT NULL,  -- Data em que o usuário foi criado/modificado
-    actionType ENUM('Cadastro', 'Atualização', 'Deleção') NOT NULL  -- Tipo de ação
+    adminName VARCHAR(100) NOT NULL,
+    adminEmail VARCHAR(255) NOT NULL,
+    createdUserName VARCHAR(255) NOT NULL,
+    createdUserEmail VARCHAR(255) NOT NULL,
+    createdDate DATE NOT NULL,
+    actionType ENUM('Cadastro', 'Atualização', 'Deleção') NOT NULL
 );
