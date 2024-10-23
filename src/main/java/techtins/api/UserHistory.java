@@ -13,10 +13,10 @@ public class UserHistory extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    public String adminName; // Nome do admin que criou o usuário
-    public String adminEmail; // Email do admin que criou o usuário
-    public String createdUserName; // Nome do usuário criado
+    public String adminName;
+    public String adminEmail;
+    public String createdUserName;
     public String createdUserEmail;
-    public LocalDate createdDate; // Data de criação do usuário
+    public LocalDate createdDate;
     public String actionType;
 }

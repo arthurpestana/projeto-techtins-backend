@@ -15,13 +15,13 @@ public class User extends PanacheEntityBase {
     public String nome;
     public String sobrenome;
     public String email;
-    public String senha; // Campo de senha
-    public String funcao = "Cliente"; // Pode ser "Admin", "Cliente" ou "Funcionário"
+    public String senha;
+    public String funcao = "Cliente";
     public LocalDate dataCadastro;
-    public String status = "Ativo"; // "Ativo" ou "Inativo"
-    public String fotoUrl; // URL da foto
-    public String endereco; // Endereço completo
-    public String genero = "Outro"; // Gênero ("Masculino", "Feminino", "Outro")
+    public String status = "Ativo";
+    public String fotoUrl;
+    public String endereco;
+    public String genero = "Outro";
 
     // Construtor vazio
     public User() {}

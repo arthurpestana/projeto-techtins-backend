@@ -20,7 +20,7 @@ public class UserResource {
     @Inject
     JsonWebToken jwt;
 
-    // Exemplo de criação do admin temporário (este endpoint pode ser removido após o uso)
+    // Exemplo de criação do admin temporário
     @POST
     @Path("/create-admin")
     @Transactional

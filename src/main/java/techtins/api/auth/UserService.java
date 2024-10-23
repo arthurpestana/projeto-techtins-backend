@@ -30,7 +30,6 @@ public class UserService {
 
     //Metodo para buscar um usuário pelo e-mail
     public User findByEmail(String email) {
-        // Usando JPQL para encontrar o usuário pelo email
         try {
             return entityManager.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class)
                     .setParameter("email", email)

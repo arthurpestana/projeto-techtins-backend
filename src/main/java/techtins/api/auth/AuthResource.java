@@ -22,7 +22,7 @@ import java.util.Set;
 public class AuthResource {
 
     @Inject
-    UserService userService; // Um serviço que valida o usuário
+    UserService userService;
 
     @POST
     @Path("/login")
