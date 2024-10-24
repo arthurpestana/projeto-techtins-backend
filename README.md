@@ -102,7 +102,7 @@ O objetivo principal desta sistema é oferecer uma solução simples e eficaz pa
 - [JWT (JSON Web Token)](https://jwt.io/)
 - [MySQL](https://www.mysql.com/)
 
-## Pré-Requisitos
+## Requisitos
 
 #### Java JDK
 É necessário instalar o [JDK 11](https://www.oracle.com/java/technologies/downloads/#java11?er=221886) executar o projeto corretamente. Na página oficial, siga as instruções do intalador.
