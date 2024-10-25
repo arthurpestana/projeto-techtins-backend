@@ -50,6 +50,9 @@ O objetivo principal desta sistema é oferecer uma solução simples e eficaz pa
 
 ## Rotas API RESTful
 
+### @GET /users/create-admin
+- Cria um usuário root para teste do sistema
+
 ### @GET /users
 - Retorna uma lista de todos os usuários cadastrados.
 ```json
